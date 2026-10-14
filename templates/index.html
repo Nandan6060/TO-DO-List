@@ -1,0 +1,16 @@
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<h1>TO-DO List</h1>
+
+<ul>
+  {% for t in tasks%}
+    <li>{{ t }} <a href="/done/{{ loop.index0}}" class="d">Done</a></li>
+  {% endfor %}
+</ul>
+
+ <form action="/add" method="post">
+  <input name="task" autofocus placeholder="Add your task..." class="I" required>
+  <button>+</button>
+</form>
