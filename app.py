@@ -34,4 +34,10 @@ def done(i):
   save()
   return redirect("/")
 
+@app.route("/clear")
+def clear():
+  tasks.clear()
+  save()
+  return redirect("/")
+
 app.run(debug=True)
