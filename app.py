@@ -19,7 +19,7 @@ except:
 
 @app.route("/")
 def home():
-  return render_template("index.html", tasks=tasks)
+  return render_template("index.html", tasks=tasks, count=len(tasks))
 
 @app.route("/add", methods=["POST"])
 def add():

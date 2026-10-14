@@ -4,6 +4,7 @@
 
 <h1>TO-DO List</h1>
 
+<p>You have {{ count }} task(s) to do.</p>
 <ul>
   {% for t in tasks%}
     <li>{{ t }} <a href="/done/{{ loop.index0}}" class="d">Done</a></li>
