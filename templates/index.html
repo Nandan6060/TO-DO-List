@@ -2,18 +2,36 @@
   <link rel="stylesheet" href="/static/style.css">
 </head>
 
+<div class="card">
+
 <h1>TO-DO List</h1>
 
 <p>You have {{ count }} task(s) to do.</p>
 <ul>
   {% for t in tasks%}
-    <li>{{ t }} <a href="/done/{{ loop.index0}}" class="d">Done</a></li>
+    <li>
+      {% if t.startswith("[x] ") %}
+        <span class="finished">{{ t[4:] }}</span>
+      {% else %}
+        <span>{{ t }}</span>
+      {% endif %}
+
+      <div>
+        {% if not t.startswith("[x] ") %}
+          <a href="/edit/{{ loop.index0 }}" class = "d">Edit</a>
+        {% endif %}
+      <a href="/toggle/{{ loop.index0}}" class="d">Done</a>
+      </div>
+    </li>
   {% endfor %}
 </ul>
 
  <form action="/add" method="post">
   <input name="task" autofocus placeholder="Add your task..." class="I" required>
   <button>+</button>
-
+{% if all_done %}  
   <a href="/clear" class="c">Clear All</a>
+{% endif %}
 </form>
+
+</div>

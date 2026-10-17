@@ -1,0 +1,13 @@
+<head class="edit">
+  <link rel="stylesheet" href="/static/style.css"
+</head>
+
+<div class="card">
+  <h1>Edit Task</h1>
+
+  <form action="/update/{{ i }}" method="post" class="I">
+    <input name="task" value="{{ name }}">
+    <button>Save</button>
+  </form>
+</div>
+

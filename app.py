@@ -19,7 +19,8 @@ except:
 
 @app.route("/")
 def home():
-  return render_template("index.html", tasks=tasks, count=len(tasks))
+  all_done = len(tasks) > 0 and all(t.startswith("[x] ") for t in tasks)
+  return render_template("index.html", tasks=tasks, count=len(tasks), all_done=all_done)
 
 @app.route("/add", methods=["POST"])
 def add():
@@ -38,6 +39,27 @@ def done(i):
 def clear():
   tasks.clear()
   save()
+  return redirect("/")
+
+@app.route("/toggle/<int:i>")
+def toggle(i):
+    if tasks[i].startswith("[x] "):
+      tasks[i] = tasks[i][4:]
+    else:
+      tasks[i] = "[x] " + tasks[i]
+      save()
+    return redirect("/")
+
+@app.route("/edit/<int:i>")
+def edit(i):
+  return render_template("edit.html", name=tasks[i], i=i)
+
+@app.route("/update/<int:i>", methods=["POST"])
+def update(i):
+  new_text = request.form["task"].strip()
+  if new_text:
+    tasks[i] = new_text
+    save()
   return redirect("/")
 
 app.run(debug=True)
